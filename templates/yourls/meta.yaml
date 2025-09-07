@@ -1,85 +1,73 @@
-name: YOURLS
-description:
-  YOURLS (Your Own URL Shortener) is a powerful, self-hosted service designed
-  for creating and managing short URLs. It provides a clean and simple
-  interface, supports plugins for extended functionality, and offers detailed
-  link tracking analytics. With YOURLS, you can maintain control over your short
-  links and branding. The application is accessible via your host on ports 8080
-  and 8081. This container is based on Docker Baseimage KasmVNC, providing
-  additional environment variables and configurations for enhanced flexibility.
-  It also supports the docker manifest for multi-platform awareness, ensuring
-  the correct image for your architecture.
+name: yourls-custom
+description: |
+  YOURLS (Your Own URL Shortener) rodando a partir do seu fork.
+  Crie e gerencie URLs curtas com este template que já puxa a última
+  versão do seu repositório no GitHub e configura automaticamente
+  o banco de dados MySQL interno.
 
-instructions: Use admin:admin123 to login.
+instructions: Acesse /admin e use as credenciais definidas no deploy.
 
 changeLog:
-  - date: 2024-10-17
-    description: Template Release
-  - date: 2025-03-03
-    description: Version bumped to 1.9.2
-  - date: 2025-07-25
-    description: Version bumped to 1.10.1
+  - date: 2025-09-07
+    description: Template personalizado Lagoo (baseado em v1.10.2)
 
 links:
-  - label: Documentation
+  - label: Documentação YOURLS
     url: https://yourls.org/#Guide
-  - label: Github
-    url: https://github.com/YOURLS/YOURLS
+  - label: Repositório Fork
+    url: https://github.com/tiagomarcal55/YOURLS
 
 contributors:
-  - name: Ahson Shaikh
-    url: https://github.com/Ahson-Shaikh
+  - name: Tiago Marçal
+    url: https://github.com/tiagomarcal55
 
 schema:
   type: object
   required:
     - appServiceName
-    - appServiceImage
     - databaseServiceName
+    - db_pass
+    - user
+    - pass
   properties:
     appServiceName:
       type: string
-      title: App Service Name
+      title: Nome do serviço de app
       default: yourls
-    appServiceImage:
-      type: string
-      title: App Service Image
-      default: yourls:1.10.1
     databaseServiceName:
       type: string
-      title: Database Service Name
+      title: Nome do serviço de banco
       default: yourls-db
+    db_pass:
+      type: string
+      title: Senha MySQL root
+      secret: true
+    user:
+      type: string
+      title: Usuário admin YOURLS
+      default: lagoo
+    pass:
+      type: string
+      title: Senha admin YOURLS
+      secret: true
 
 benefits:
-  - title: Simple URL Management
-    description:
-      YOURLS allows you to create, manage, and track short URLs easily through
-      its web interface or API.
-  - title: Self-Hosted Solution
-    description:
-      Stay in control of your links with a self-hosted service, ensuring privacy
-      and flexibility.
-  - title: Custom Branding
-    description:
-      Customize your short links with your own domain to enhance branding and
-      credibility.
+  - title: Deploy automático
+    description: Puxa sempre o seu fork com a última versão.
+  - title: Credenciais seguras
+    description: Senhas armazenadas como secrets no Easypanel.
+  - title: Configuração zero
+    description: Banco interno configurado sem você tocar em nada.
 
 features:
-  - title: API Access
-    description:
-      Integrate YOURLS with other tools using its flexible API for programmatic
-      access.
-  - title: Plugins Support
-    description:
-      Extend YOURLS functionality with various community-built plugins.
-  - title: Analytics Dashboard
-    description:
-      Get detailed insights into clicks, referrers, and geographical data.
-  - title: Custom Links
-    description:
-      Create personalized short links with custom slugs for better memorability.
+  - title: Atualização contínua
+    description: Seu código no GitHub sempre aplicado no deploy.
+  - title: Flexibilidade
+    description: Customize variáveis e domínios sem alterar o repo.
+  - title: Segurança
+    description: Senhas de banco e admin nunca ficam no código.
 
 tags:
   - URL Shortener
   - Self-Hosted
-  - Analytics
+  - MySQL
